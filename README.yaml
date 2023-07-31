@@ -1,0 +1,80 @@
+name: terraform-google-public-storage-bucket
+license: "BSD2"
+copyrights:
+- name: "SR2 Communications Limited"
+  url: "https://sr2.uk/"
+  year: "2023"
+gitlab_repo: sr2c/terraform-google-public-storage-bucket
+related:
+- name: "terraform-null-label"
+  description: "Terraform module designed to generate consistent names and tags for resources. Use terraform-null-label to implement a strict naming convention."
+  url: "https://github.com/cloudposse/terraform-null-label"
+introduction: |-
+  This Terraform module will provision a Google Cloud Storage bucket and a service account that has the necessary
+  permissions to interact with the bucket. The bucket will be configured with a CORS policy and permit public access via
+  the web.
+
+  This module will create the following resources:
+
+  * Google Storage Bucket: The module creates a storage bucket with enabled uniform bucket-level access and CORS
+    settings that allow GET and HEAD requests from any origin.
+  * Public IAM Policy: It sets a public IAM policy on the bucket, making it readable by "allUsers", allowing anyone on
+    the internet to view the bucket.
+  * Google Service Account: The module creates a service account that your applications can use to interact with the
+    storage bucket.
+  * Service Account Key: The module creates a JSON key for the service account and outputs it. Your applications can use
+    this key to authenticate as the service account.
+  * IAM Policy for the Service Account: It attaches an IAM policy to the bucket giving the service account the "Storage
+    Object Admin" role, enabling it to read, write, and list objects in the bucket.
+
+  Caveats
+  -------
+
+  While this module is designed to simplify the setup of a GCS bucket and service account, there are a few points that
+  users should be aware of:
+
+  * Security of Service Account Keys: The module outputs the private key of the service account in JSON format. This key
+    should be stored securely, as anyone with the key can authenticate as the service account. It is marked as sensitive
+    to avoid showing it in logs or output, but you are responsible for managing this secret securely.
+
+  * Publicly Readable Bucket: This module creates a bucket that is readable by anyone on the internet. Depending on your
+    use case, this might not be what you want. If you need a private bucket, you would need to use a different module.
+
+  * Service Account Permissions: The service account created by this module has the "Storage Object Admin" role on the
+    bucket. This allows it to read, write, and list objects in the bucket. Depending on your needs, this might be more
+    permissions than you want to grant.
+
+  * Using Project ID: The project ID where you want to create these resources is a required input for this module.
+    Please ensure to supply the correct project ID.
+
+  *Remember*, it's good practice to follow the principle of least privilege when setting up IAM policies. Be sure to
+  review the created resources and their permissions, and adjust the module as needed to fit your specific use case.
+usage: |-
+  ```hcl
+  # Create a standard label resource. See [null-label](https://github.com/cloudposse/terraform-null-label/#terraform-null-label--)
+  module "label" {
+    source  = "cloudposse/label/null"
+    # We recommend pinning every module to a specific version, though usually you want to use the current one
+    # version = "x.x.x"
+
+    namespace = "eg"
+    name      = "example"
+  }
+
+  module "example" {
+    source  = "sr2c/public-storage-bucket/google"
+    # We recommend pinning every module to a specific version
+    # version = "x.x.x"
+
+    project_id = "example-example-1299830"
+
+    context = module.label.this
+  }
+  ```
+include:
+  - "docs/terraform-split.md"
+  - "docs/targets.md"
+contributors:
+- name: "irlxyz"
+  gitlab: "irlxyz"
+  gitlab_id: 5895869
