@@ -63,8 +63,9 @@ This module will create the following resources:
   storage bucket.
 * Service Account Key: The module creates a JSON key for the service account and outputs it. Your applications can use
   this key to authenticate as the service account.
-* IAM Policy for the Service Account: It attaches an IAM policy to the bucket giving the service account the "Storage
-  Object Admin" role, enabling it to read, write, and list objects in the bucket.
+* IAM Policy for the Service Account: The module attaches IAM policies to the bucket giving the service account the
+  "Storage Object Admin" and "Legacy Bucket Reader" roles, enabling it to read, write, list objects in the bucket,
+  and read the bucket's metadata.
 
 Caveats
 -------
@@ -161,6 +162,7 @@ module "example" {
 | [google_storage_bucket.bucket](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/storage_bucket) | resource |
 | [google_storage_bucket_iam_member.public](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/storage_bucket_iam_member) | resource |
 | [google_storage_bucket_iam_member.service_account](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/storage_bucket_iam_member) | resource |
+| [google_storage_bucket_iam_member.service_account_metadata](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/storage_bucket_iam_member) | resource |
 
 ## Inputs
 
