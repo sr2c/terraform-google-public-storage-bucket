@@ -37,3 +37,9 @@ resource "google_storage_bucket_iam_member" "service_account" {
 resource "google_service_account_key" "service_account" {
   service_account_id = google_service_account.this.name
 }
+
+resource "google_storage_bucket_iam_member" "service_account_metadata" {
+  bucket = google_storage_bucket.this.name
+  role   = "roles/storage.legacyBucketReader"
+  member = "serviceAccount:${google_service_account.this.email}"
+}
