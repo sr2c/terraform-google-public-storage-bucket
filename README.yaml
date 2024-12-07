@@ -1,9 +1,5 @@
 name: terraform-google-public-storage-bucket
 license: "BSD2"
-copyrights:
-- name: "SR2 Communications Limited"
-  url: "https://sr2.uk/"
-  year: "2023"
 gitlab_repo: sr2c/terraform-google-public-storage-bucket
 related:
 - name: "terraform-null-label"
