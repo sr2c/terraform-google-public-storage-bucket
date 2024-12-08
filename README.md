@@ -91,7 +91,9 @@ module "example" {
 
   context = module.label.this
 }
-```<!-- markdownlint-disable -->
+```
+
+<!-- markdownlint-disable -->
 ## Requirements
 
 | Name | Version |
@@ -162,6 +164,8 @@ these inputs have been seperated here to make it clearer which inputs are specif
 |------|-------------|
 | <a name="output_service_account_key"></a> [service\_account\_key](#output\_service\_account\_key) | The service account key |
 <!-- markdownlint-restore -->
+
+
 <!-- markdownlint-disable -->
 ## Makefile Targets
 ```text
@@ -174,6 +178,7 @@ Available targets:
 
 ```
 <!-- markdownlint-restore -->
+
 ## Share the Love
 
 Like this project? Please give it a ★ on
